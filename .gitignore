@@ -1,0 +1,15 @@
+# Compiled files
+*.tfstate
+*.tfstate.backup
+
+# Variables files with secrets
+*.tfvars
+
+# Plan files
+*.plan
+
+# Certificate files
+*.pem
+*.pfx
+*.crt
+*.key
