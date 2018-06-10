@@ -53,7 +53,7 @@ Command `$ terraform apply` will create EC2 instances and make instances setup (
 $ terraform apply
 ...
 
-Apply complete! Resources: 5 added, 0 changed, 0 destroyed.
+Apply complete! Resources: 7 added, 0 changed, 0 destroyed.
 
 Outputs:
 
@@ -119,7 +119,7 @@ You can pass additional parameters in request body to apply custom settings: `aw
 Example:
 
 ```
-$ curl -X POST http://localhost:4567/api/v1/apply -d 'proxy_type=http&aws_instances_count=3&proxy_user=admin&proxy_password=123456'
+$ curl -X POST http://localhost:4567/api/v1/apply -d 'proxy_type=http&proxy_port=5555&aws_instances_count=3&proxy_user=admin&proxy_password=123456'
 
 {
   "status": "Ok",
