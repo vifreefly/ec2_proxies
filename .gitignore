@@ -1,6 +1,5 @@
 # Compiled files
-*.tfstate
-*.tfstate.backup
+*.tfstate*
 
 # Variables files with secrets
 *.tfvars
@@ -13,3 +12,13 @@
 *.pfx
 *.crt
 *.key
+
+# Terraform folder
+.terraform/
+
+# SSH folder
+/.ssh/*
+!/.ssh/.keep
+
+# Ruby
+Gemfile.lock
