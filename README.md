@@ -2,6 +2,11 @@
 
 Read short introduction here: [Create free HTTPS/SOCKS5 proxy servers using AWS Free Tier EC2 instances automatically on demand within Terraform and simple HTTP API](https://medium.com/@vfreefly/create-free-https-socks5-proxy-servers-using-aws-free-tier-ec2-instances-automatically-on-demand-517ad5c9c0bb).
 
+> Also see related info:
+> * [awslambdaproxy](https://github.com/dan-v/awslambdaproxy) - An AWS Lambda powered HTTP/SOCKS web proxy
+> * [Proxy Your Traffic With AWS Lambda](https://medium.com/@malzoek/proxy-your-traffic-with-aws-lambda-74efba8269ff)
+
+
 **Tools:**
 * [Terraform](https://www.terraform.io/) to automatically create/install software/destroy EC2 instances
 * Proxy server - [Goproxy](https://github.com/snail007/goproxy)
