@@ -5,6 +5,7 @@ Read short introduction here: [Create free HTTPS/SOCKS5 proxy servers using AWS 
 > Also see related info:
 > * [awslambdaproxy](https://github.com/dan-v/awslambdaproxy) - An AWS Lambda powered HTTP/SOCKS web proxy
 > * [Proxy Your Traffic With AWS Lambda](https://medium.com/@malzoek/proxy-your-traffic-with-aws-lambda-74efba8269ff)
+> * [How to Setup a Free Proxy Server on Amazon EC2 / tinyproxy](https://webrobots.io/how-to-setup-a-free-proxy-server-on-amazon-ec2/)
 
 
 **Tools:**
