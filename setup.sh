@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # Update system
 sudo apt update
 
