@@ -48,7 +48,7 @@ class EC2ProxyAPI < Sinatra::Base
 
     get "/instances_list" do
       instances = get_instances_info
-      if instances.empty?
+      if instances.nil? || instances.empty?
         json(status: "Ok", message: "There are no instances created", data: {})
       else
         json(status: "Ok", message: "Running #{instances.size} instances", data: { instances: instances })
