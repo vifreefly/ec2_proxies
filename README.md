@@ -19,7 +19,16 @@ Read short introduction here: [Create free HTTPS/SOCKS5 proxy servers using AWS 
 ## Installation
 
 * Clone the repo
-* Install [CLI Terraform](https://www.terraform.io/intro/getting-started/install.html) and run `$ terraform init` inside of project directory.
+* Install [CLI Terraform](https://www.terraform.io/intro/getting-started/install.html):
+
+```bash
+# example for 0.11.8 version. Check latest here https://www.terraform.io/downloads.html
+cd /tmp && wget https://releases.hashicorp.com/terraform/0.11.8/terraform_0.11.8_linux_amd64.zip
+sudo unzip terraform_0.11.8_linux_amd64.zip -d /usr/local/bin
+rm terraform_0.11.8_linux_amd64.zip
+```
+
+* Run `$ terraform init` inside of project directory.
 * For HTTP API (optionally): [install ruby](https://www.ruby-lang.org/en/documentation/installation/) (if you don't have it yet. Minimal supported version is 2.3), install bundler gem `$ gem install bundler` and then run `$ bundle install` inside of project directory.
 
 
