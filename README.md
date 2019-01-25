@@ -1,6 +1,6 @@
 # EC2 Proxies
 
-Read short introduction here: [Create free HTTPS/SOCKS5 proxy servers using AWS Free Tier EC2 instances automatically on demand within Terraform and simple HTTP API](https://medium.com/@vfreefly/create-free-https-socks5-proxy-servers-using-aws-free-tier-ec2-instances-automatically-on-demand-517ad5c9c0bb).
+Read short introduction here: [Create free HTTPS/SOCKS5 proxy servers using AWS Free Tier EC2 instances automatically on demand within Terraform and simple HTTP API](https://victorafanasev.info/tech/create-free-https-socks5-proxy-servers-using-free-ec2-automatically).
 
 > Also see related info:
 > * [awslambdaproxy](https://github.com/dan-v/awslambdaproxy) - An AWS Lambda powered HTTP/SOCKS web proxy
@@ -181,3 +181,7 @@ $ curl -X POST http://localhost:4567/api/v1/destroy
   "message": "Successfully performed destroy action"
 }
 ```
+
+## License
+
+[MIT](https://opensource.org/licenses/MIT)
