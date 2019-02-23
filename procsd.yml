@@ -1,0 +1,7 @@
+app: ec2_proxies_api
+processes:
+  web: bundle exec ruby app.rb
+environment:
+  PORT: 4567
+  HOST: 127.0.0.1
+  RACK_ENV: production

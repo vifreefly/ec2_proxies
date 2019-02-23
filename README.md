@@ -53,7 +53,7 @@ All default settings located in the `config.tf` file. If you want to change the 
 You'll probably want to tweak following settings:
 
 * `AWS_INSTANCES_COUNT` - the number of proxy servers to create. Default is 5. You can set it [up to 20](https://aws.amazon.com/ec2/faqs/#How_many_instances_can_I_run_in_Amazon_EC2).
-* `AWS_DEFAULT_REGION` - region of instances (proxy servers) where they will be created. Default is `us-east-1`. Check [available regions here](https://docs.aws.amazon.com/general/latest/gr/rande.html#ec2_region). Keep in mind that `AWS_INSTANCE_AMI` should match AWS_DEFAULT_REGION. You can check all Ubuntu [16.04 server AMI's here](https://cloud-images.ubuntu.com/locator/ec2/).
+* `AWS_DEFAULT_REGION` - region of instances (proxy servers) where they will be created. Default is `us-east-1`. Check [available regions here](https://docs.aws.amazon.com/general/latest/gr/rande.html#ec2_region). Keep in mind that `AWS_INSTANCE_AMI` should match AWS_DEFAULT_REGION. You can find required AWS_INSTANCE_AMI for a specific region here: <https://us-east-2.console.aws.amazon.com/ec2/v2/home#LaunchInstanceWizard:>
 * `PROXY_TYPE` - type of proxy server. Default is `socks` (socks5). If you need HTTP/HTTPS anonymous proxy instead, set variable to `http`.
 * `PROXY_PORT` - port of proxy server. Default is `46642`.
 * `PROXY_USER` and `PROXY_PASSWORD` - set these variables if you want proxy server use authorization. Defaut is empty (proxy without authorization).

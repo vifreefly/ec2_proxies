@@ -5,9 +5,11 @@ require 'sinatra/reloader'
 require 'sinatra/json'
 
 class EC2ProxyAPI < Sinatra::Base
-  set :server, :puma
-  enable :logging
   register Sinatra::Namespace
+
+  set :server, :puma
+  set :bind, ENV["HOST"] if ENV["HOST"]
+  enable :logging
 
   configure :development do
     register Sinatra::Reloader
