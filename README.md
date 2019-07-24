@@ -18,14 +18,15 @@ Read short introduction here: [Create free HTTPS/SOCKS5 proxy servers using AWS 
 
 ## Installation
 
-* Clone the repo
+* Clone the repo: `$ git clone https://github.com/vifreefly/ec2_proxies.git`
 * Install [CLI Terraform](https://www.terraform.io/intro/getting-started/install.html):
 
 ```bash
-# example for 0.11.8 version. Check latest here https://www.terraform.io/downloads.html
-cd /tmp && wget https://releases.hashicorp.com/terraform/0.11.8/terraform_0.11.8_linux_amd64.zip
-sudo unzip terraform_0.11.8_linux_amd64.zip -d /usr/local/bin
-rm terraform_0.11.8_linux_amd64.zip
+# example for 0.12.5 version. Check latest here https://www.terraform.io/downloads.html
+
+cd /tmp && wget https://releases.hashicorp.com/terraform/0.12.5/terraform_0.12.5_linux_amd64.zip
+sudo unzip terraform_0.12.5_linux_amd64.zip -d /usr/local/bin
+rm terraform_0.12.5_linux_amd64.zip
 ```
 
 * Run `$ terraform init` inside of project directory.
@@ -36,7 +37,7 @@ rm terraform_0.11.8_linux_amd64.zip
 
 **1)** Provide your `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY` credentials to manage EC2 instances. It is good practice to have separate user roles with restricted permissions for different projects.
 
-[Check here](https://medium.com/@vfreefly/how-to-create-aws-restricted-credentials-example-for-s3-eb360189f383) how to create a new AWS user role and copy credentials. You'll need a user role with `AmazonEC2FullAccess` permission. Then create file `terraform.tfvars` (inside of project directory) and put there `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY`, example:
+[Check here](https://victorafanasev.info/tech/how-to-create-aws-restricted-credentials-example-for-s3) how to create a new AWS user role and copy credentials. You'll need a user role with `AmazonEC2FullAccess` permission. Then create file `terraform.tfvars` (inside of project directory) and put there `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY`, example:
 
 ```
 AWS_ACCESS_KEY_ID="78J347ZVBPY5R4EPXYGQ"

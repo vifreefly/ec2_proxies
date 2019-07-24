@@ -1,5 +1,5 @@
 provider "aws" {
-  version = "~> 1.22"
+  version = "~> 2.7"
   access_key = "${var.AWS_ACCESS_KEY_ID}"
   secret_key = "${var.AWS_SECRET_ACCESS_KEY}"
   region = "${var.AWS_DEFAULT_REGION}"
@@ -46,7 +46,7 @@ resource "aws_instance" "ProxyNode" {
   key_name      = "${aws_key_pair.ec2_key.key_name}"
 
   vpc_security_group_ids = ["${aws_security_group.ec2_proxies_sg.id}"]
-  tags {
+  tags = {
     Name = "Proxy Node ${count.index}"
   }
 
@@ -64,6 +64,7 @@ resource "aws_instance" "ProxyNode" {
 
   connection {
     type = "ssh"
+    host = self.public_ip
     user = "${var.AWS_INSTANCE_USER_NAME}"
     private_key = "${file("${var.PRIVATE_KEY_PATH}")}"
   }
