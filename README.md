@@ -124,7 +124,7 @@ Destroy complete! Resources: 7 destroyed.
 
 ### HTTP API
 
-First, start the API server: `$ RACK_ENV=production bundle exec ruby app.rb`. API will be available on `http://localhost:4567`.
+First, start the API server: `$ RACK_ENV=production HOST=127.0.0.1 bundle exec ruby app.rb`. API will be available on `http://localhost:4567`.
 
 #### POST /api/v1/apply
 
