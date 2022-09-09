@@ -1,12 +1,6 @@
 # EC2 Proxies
 
-Read short introduction here: [Create free HTTPS/SOCKS5 proxy servers using AWS Free Tier EC2 instances automatically on demand within Terraform and simple HTTP API](https://victorafanasev.info/tech/create-free-https-socks5-proxy-servers-using-free-ec2-automatically).
-
-> Also see related info:
-> * [awslambdaproxy](https://github.com/dan-v/awslambdaproxy) - An AWS Lambda powered HTTP/SOCKS web proxy
-> * [Proxy Your Traffic With AWS Lambda](https://medium.com/@malzoek/proxy-your-traffic-with-aws-lambda-74efba8269ff)
-> * [How to Setup a Free Proxy Server on Amazon EC2 / tinyproxy](https://webrobots.io/how-to-setup-a-free-proxy-server-on-amazon-ec2/)
-
+Read short introduction here: [Create free HTTPS/SOCKS5 proxy servers using AWS Free Tier EC2 instances automatically on demand within Terraform and simple HTTP API](https://vifreefly.github.io/tech/create-free-https-socks5-proxy-servers-using-free-ec2-automatically).
 
 **Tools:**
 * [Terraform](https://www.terraform.io/) to automatically create/install software/destroy EC2 instances
@@ -37,7 +31,7 @@ rm terraform_0.12.5_linux_amd64.zip
 
 **1)** Provide your `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY` credentials to manage EC2 instances. It is good practice to have separate user roles with restricted permissions for different projects.
 
-[Check here](https://victorafanasev.info/tech/how-to-create-aws-restricted-credentials-example-for-s3) how to create a new AWS user role and copy credentials. You'll need a user role with `AmazonEC2FullAccess` permission. Then create file `terraform.tfvars` (inside of project directory) and put there `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY`, example:
+[Check here](https://vifreefly.github.io/tech/how-to-create-aws-restricted-credentials-example-for-s3) how to create a new AWS user role and copy credentials. You'll need a user role with `AmazonEC2FullAccess` permission. Then create file `terraform.tfvars` (inside of project directory) and put there `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY`, example:
 
 ```
 AWS_ACCESS_KEY_ID="78J347ZVBPY5R4EPXYGQ"
