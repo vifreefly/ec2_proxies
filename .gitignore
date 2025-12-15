@@ -22,3 +22,6 @@
 
 # Ruby
 Gemfile.lock
+
+# Other
+.terraform.lock.hcl
