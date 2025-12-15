@@ -86,7 +86,7 @@ You'll probably want to tweak following settings:
 * `AWS_DEFAULT_REGION` - region of instances (proxy servers) where they will be created. Default is `us-east-1`. Check [available regions here](https://docs.aws.amazon.com/general/latest/gr/rande.html#ec2_region). Keep in mind that `AWS_INSTANCE_AMI` should match AWS_DEFAULT_REGION. You can find required AWS_INSTANCE_AMI for a specific region here: <https://us-east-1.console.aws.amazon.com/ec2/home?region=us-east-1#LaunchInstances:>
 * `PROXY_TYPE` - type of proxy servers. Default is `socks` (socks5). If you need HTTP/HTTPS anonymous proxy instead, set variable to `http`.
 * `PROXY_PORT` - port of proxy servers. Default is `46642`.
-* `PROXY_USER` and `PROXY_PASSWORD` - set these variables if you want proxy servers use authorization. Defaut is empty (proxy without authorization).
+* `PROXY_USER` and `PROXY_PASSWORD` - _[NOT SUPPORTED FOR NOW BECAUSE OF Goproxy LIMITATIONS]_. Set these variables if you want proxy servers use authorization. Defaut is empty (proxy without authorization). NOTE: [Goproxy](https://github.com/snail007/goproxy) (which is used to create proxy servers) doesn't support authorization on a free plan, so you can't use authorization. Proxies will be created without authorization and works just fine without auth. Taking into account that proxies created for a short term usage, it's not a big deal. If you have in mind another simple and fast proxy server which supports authorization, please let me know or create a PR to use it instead.
 
 ### Usage
 #### Command line
