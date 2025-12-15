@@ -11,11 +11,6 @@ class EC2ProxyAPI < Sinatra::Base
   set :bind, ENV["HOST"] if ENV["HOST"]
   enable :logging
 
-  configure :development do
-    register Sinatra::Reloader
-    require 'pry'
-  end
-
   helpers do
     def get_instances_info
       output = `terraform output --json`
