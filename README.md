@@ -1,35 +1,71 @@
 # EC2 Proxies
 
-Read short introduction here: [Create free HTTPS/SOCKS5 proxy servers using AWS Free Tier EC2 instances automatically on demand within Terraform and simple HTTP API](https://vifreefly.github.io/tech/create-free-https-socks5-proxy-servers-using-free-ec2-automatically).
+Create FREE HTTPS/SOCKS5 proxy servers using AWS Free Tier EC2 instances automatically on demand with Terraform and simple HTTP API.
+
+## Why Use EC2 for Proxy Servers?
+
+For scraping purposes, you may need good quality proxies every day for 1–2 hours when web crawlers are running — not 24 hours per day. This makes AWS EC2 instances an ideal choice for on-demand proxy servers that you create and destroy as needed.
+
+* **Cost-effective**: Use AWS Free Tier to run proxy servers at no cost (with limits)
+* **Fresh IPs**: Each new instance gets a random IPv4 address from AWS's pool, providing fresh proxy IPs for every new web scraping session
+* **Scalable**: Run up to 20 EC2 instances simultaneously
+* **On-demand**: Create and destroy proxy servers via Terraform or HTTP API
+
+### AWS Free Tier limits
+
+New AWS accounts receive **$200 in credits** ($100 at signup + $100 for completing onboarding tasks), valid for **6 months** or until credits are exhausted.
+
+#### Eligible Instance Types
+
+`t3.micro`, `t3.small`, `t4g.micro`, `t4g.small`, `c7i-flex.large`, `m7i-flex.large`
+
+> This project uses `t3.micro` instances, which are eligible for the AWS Free Tier.
+
+#### Cost Calculation: Running 20 Proxies for 1 Hour Daily
+
+| Resource | Calculation | Monthly Cost |
+|----------|-------------|--------------|
+| EC2 t3.micro | 20 instances × 1 hour × 30 days × $0.0104/hr | ~$6.24 |
+| Public IPv4 | 20 IPs × 1 hour × 30 days × $0.005/hr | $3.00 |
+| Data Transfer | ~10 GB outbound × $0.09/GB | ~$0.90 |
+| **Total** | | **~$10.14/month** |
+
+**6-Month Total**: ~$60.84 — **easily covered by $200 free credits** ✅
+
+> Actual costs may vary by region. The calculation above uses `us-east-1` pricing.
+
+---
 
 **Tools:**
 * [Terraform](https://www.terraform.io/) to automatically create/install software/destroy EC2 instances
-* Proxy server - [Goproxy](https://github.com/snail007/goproxy)
-* Ruby [Sinatra gem](http://sinatrarb.com/) for HTTP API to manage proxy instances (optional)
-* Ubuntu 16.04 server
+* Proxy server tool - [Goproxy](https://github.com/snail007/goproxy)
+* Ubuntu 24.04 LTS for EC2 instances
 * Systemd to convert goproxy process to the system daemon service
+* Ruby [Sinatra gem](http://sinatrarb.com/) for optional HTTP API to manage proxy instances
 
 
-## Installation
+## Getting Started
+### Installation
 
-* Clone the repo: `$ git clone https://github.com/vifreefly/ec2_proxies.git`
-* Install [CLI Terraform](https://www.terraform.io/intro/getting-started/install.html):
+On your local machine:
+
+1. Clone the repo: `$ git clone https://github.com/vifreefly/ec2_proxies.git`
+2. Install [CLI Terraform](https://developer.hashicorp.com/terraform/tutorials/aws-get-started/install-cli):
+
+For macOS:
 
 ```bash
-# example for 0.12.5 version. Check latest here https://www.terraform.io/downloads.html
-
-cd /tmp && wget https://releases.hashicorp.com/terraform/0.12.5/terraform_0.12.5_linux_amd64.zip
-sudo unzip terraform_0.12.5_linux_amd64.zip -d /usr/local/bin
-rm terraform_0.12.5_linux_amd64.zip
+brew tap hashicorp/tap
+brew install hashicorp/tap/terraform
 ```
 
-* Run `$ terraform init` inside of project directory.
-* For HTTP API (optionally): [install ruby](https://www.ruby-lang.org/en/documentation/installation/) (if you don't have it yet. Minimal supported version is 2.3), install bundler gem `$ gem install bundler` and then run `$ bundle install` inside of project directory.
+For Linux see https://developer.hashicorp.com/terraform/tutorials/aws-get-started/install-cli 
 
+3. Run `$ terraform init` inside of project directory.
 
-## Configuration
+### Configuration
 
-**1)** Provide your `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY` credentials to manage EC2 instances. It is good practice to have separate user roles with restricted permissions for different projects.
+1. Provide your `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY` credentials to manage EC2 instances. It is good practice to have separate user roles with restricted permissions for different projects.
 
 [Check here](https://vifreefly.github.io/tech/how-to-create-aws-restricted-credentials-example-for-s3) how to create a new AWS user role and copy credentials. You'll need a user role with `AmazonEC2FullAccess` permission. Then create file `terraform.tfvars` (inside of project directory) and put there `AWS_ACCESS_KEY_ID` and `AWS_SECRET_ACCESS_KEY`, example:
 
@@ -38,24 +74,23 @@ AWS_ACCESS_KEY_ID="78J347ZVBPY5R4EPXYGQ"
 AWS_SECRET_ACCESS_KEY="WvrNVw38ZJT8pbMV6Vy75RQuLoBdgW6ijtRLMgdt"
 ```
 
-**2)** Generate SSH key pair for EC2 instances and save it to the .ssh subfolder: `$ ssh-keygen -f .ssh/ec2_key -N ''`
+2. Generate SSH key pair for EC2 instances and save it to the .ssh subfolder: `$ ssh-keygen -f .ssh/ec2_key -N ''`
 
-
-## Settings
+### Settings
 
 All default settings located in the `config.tf` file. If you want to change the value of variable, don't edit `config.tf` file, instead put your configuration to the `terreform.tfvars` file (create this file if it doesn't exists). Use format `VARIABLE_NAME="value"` inside of `terreform.tfvars` file.
 
 You'll probably want to tweak following settings:
 
-* `AWS_INSTANCES_COUNT` - the number of proxy servers to create. Default is 5. You can set it [up to 20](https://aws.amazon.com/ec2/faqs/#How_many_instances_can_I_run_in_Amazon_EC2).
-* `AWS_DEFAULT_REGION` - region of instances (proxy servers) where they will be created. Default is `us-east-1`. Check [available regions here](https://docs.aws.amazon.com/general/latest/gr/rande.html#ec2_region). Keep in mind that `AWS_INSTANCE_AMI` should match AWS_DEFAULT_REGION. You can find required AWS_INSTANCE_AMI for a specific region here: <https://us-east-2.console.aws.amazon.com/ec2/v2/home#LaunchInstanceWizard:>
-* `PROXY_TYPE` - type of proxy server. Default is `socks` (socks5). If you need HTTP/HTTPS anonymous proxy instead, set variable to `http`.
-* `PROXY_PORT` - port of proxy server. Default is `46642`.
-* `PROXY_USER` and `PROXY_PASSWORD` - set these variables if you want proxy server use authorization. Defaut is empty (proxy without authorization).
+* `AWS_INSTANCES_COUNT` - the number of proxy servers to create. Default is 5.
+* `AWS_DEFAULT_REGION` - region of instances (proxy servers) where they will be created. Default is `us-east-1`. Check [available regions here](https://docs.aws.amazon.com/general/latest/gr/rande.html#ec2_region). Keep in mind that `AWS_INSTANCE_AMI` should match AWS_DEFAULT_REGION. You can find required AWS_INSTANCE_AMI for a specific region here: <https://us-east-1.console.aws.amazon.com/ec2/home?region=us-east-1#LaunchInstances:>
+* `PROXY_TYPE` - type of proxy servers. Default is `socks` (socks5). If you need HTTP/HTTPS anonymous proxy instead, set variable to `http`.
+* `PROXY_PORT` - port of proxy servers. Default is `46642`.
+* `PROXY_USER` and `PROXY_PASSWORD` - set these variables if you want proxy servers use authorization. Defaut is empty (proxy without authorization).
 
-## Usage
-### Command line
-#### apply
+### Usage
+#### Command line
+##### apply
 
 Command `$ terraform apply` will create EC2 instances and make instances setup (install and run goproxy server). From output you'll get IP addresses of created instances. Example:
 
@@ -78,7 +113,7 @@ instances = [
 
 Use these IP addresses to connect to proxy servers (proxy type, port and user/password settings were applied from config.tf, see Settings above).
 
-#### output
+##### output
 
 Command `$ terraform output` will print IP addresses of created instances. Example:
 
@@ -94,7 +129,7 @@ instances = [
 ]
 ```
 
-#### destroy
+##### destroy
 
 Command `$ terraform destroy` will destroy all created instances. Example:
 
@@ -116,11 +151,22 @@ Destroy complete! Resources: 7 destroyed.
 ```
 
 
-### HTTP API
+#### HTTP API
+
+You can use optional HTTP API to manage proxy servers from your web scrapers codebase, for example when you start running your scrapers you call local API to create proxy servers and when you finish running your scrapers you call API to destroy proxy servers.
+
+<details/>
+  <summary>Installation (click to expand)</summary><br>
+
+1. Install [Ruby](https://www.ruby-lang.org/en/documentation/installation/): `$ brew install ruby`
+2. Install [Bundler](https://bundler.io/): `$ gem install bundler`
+3. Install dependencies: `$ bundle install`
+
+</details><br>
 
 First, start the API server: `$ RACK_ENV=production HOST=127.0.0.1 bundle exec ruby app.rb`. API will be available on `http://localhost:4567`.
 
-#### POST /api/v1/apply
+##### POST /api/v1/apply
 
 Make post request `/api/v1/apply` to create proxy servers. Configuration in `config.tf` will be used to create instances.
 
@@ -144,7 +190,7 @@ $ curl -X POST http://localhost:4567/api/v1/apply -d 'proxy_type=http&proxy_port
 }
 ```
 
-#### GET /api/v1/instances_list
+##### GET /api/v1/instances_list
 
 Make get request `/api/v1/instances_list` to get IP addresses of created proxy servers. Example:
 
@@ -164,7 +210,7 @@ $ curl -X GET http://localhost:4567/api/v1/instances_list
 }
 ```
 
-#### POST /api/v1/destroy
+##### POST /api/v1/destroy
 
 Make post request `/api/v1/destroy` to destroy all proxy servers. Example:
 
